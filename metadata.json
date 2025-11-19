@@ -1,0 +1,5 @@
+{
+  "name": "Nebula Todo",
+  "description": "一个未来风格的任务管理器，支持每日循环和一次性任务，具有粒子消散效果和 AI 驱动的任务分解功能。",
+  "requestFramePermissions": []
+}
