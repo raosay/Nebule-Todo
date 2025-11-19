@@ -1,6 +1,26 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
+// Helper to safely get the API Key across different environments (Vite, Node, etc.)
+const getApiKey = () => {
+  try {
+    // @ts-ignore - Handle Vite environment
+    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_KEY) {
+      // @ts-ignore
+      return import.meta.env.VITE_API_KEY;
+    }
+  } catch (e) {}
+
+  try {
+    // Handle Node.js or Webpack with process.env polyfill
+    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+      return process.env.API_KEY;
+    }
+  } catch (e) {}
+
+  return '';
+};
+
+const apiKey = getApiKey();
 
 // Initialize safe instance
 let ai: GoogleGenAI | null = null;
